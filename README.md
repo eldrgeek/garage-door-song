@@ -13,6 +13,12 @@ music by Suno, and ten images written by four AIs and rendered by three.
 - `template.html` + `build.py`: `python3 build.py` writes `index.html` (run `build-narration.py` first after changing the narration).
 - `img/`: the rendered images (JPEG) and Suno's cover art.
 
+- The page ends with a tip jar linking to
+  `minds-aligned.org/support/?campaign=garage-door&ref=garage-door-song`. That page
+  holds the prices and the Stripe keys; this one holds a link, so nothing here has
+  to change when an amount does. `ref` is what credits this page in Stripe with
+  whoever it brings in. See `SUPPORT.md` in eldrgeek/minds-aligned.
+
 Live: https://garage-door-song.netlify.app
 
 Authorship: Mike Wolf (producer) with Claude Opus 5 (Claude Code), 2026-09-16.
