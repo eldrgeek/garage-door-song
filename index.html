@@ -200,6 +200,17 @@
   .roll li b { font-family: var(--mono); font-size: 14px; }
   .roll .cover { display: flex; gap: 12px; align-items: center; margin-top: 12px; font: 12px/1.4 var(--mono); color: var(--muted); }
   .roll .cover img { width: 64px; height: 64px; border-radius: 6px; }
+  /* The hat by the door. Amber like everything else that is lit on this page;
+     card geometry borrowed from .roll > div so it reads as one more panel in
+     the credits rather than an ad bolted onto the end. */
+  .tipjar { margin: 56px auto 0; max-width: 640px; background: var(--ground-2); border: 1px solid var(--line); border-left: 3px solid var(--bulb); border-radius: 12px; padding: 24px 26px; }
+  .tipjar h4 { font: 600 12px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--bulb); margin: 0 0 12px; }
+  .tipjar p { font: 16px/1.7 var(--serif); color: var(--ink); margin: 0 0 18px; }
+  .tipjar .chip { display: inline-block; font: 600 14px/1 var(--mono); letter-spacing: .06em; text-decoration: none; color: var(--ground); background: var(--bulb); padding: 13px 24px; border-radius: 999px; transition: background .18s; }
+  .tipjar .chip:hover { background: #ffc76e; }
+  .tipjar .fine { font: 12px/1.7 var(--mono); color: var(--dim); margin: 16px 0 0; }
+  .tipjar .fine a { color: var(--muted); }
+  @media (max-width: 560px) { .tipjar { padding: 20px; } .tipjar .chip { display: block; text-align: center; } }
   footer { padding-block: 40px 30px; text-align: center; font: 13px/1.6 var(--mono); color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; }
   .door-rule { height: 34px; margin: 60px auto 0; background: repeating-linear-gradient(180deg, #2a2521 0 6px, #1a1714 6px 8px); border-radius: 3px; opacity: .8; }
 </style>
@@ -551,6 +562,23 @@
     </div>
   </section>
 </main>
+
+<section class="wrap" aria-labelledby="tipjar-h">
+  <!-- One link, no Stripe code, no price, nothing to re-issue when an amount
+       changes: minds-aligned.org/support/ reads the query string and decides
+       what is being asked for. `campaign` picks the ask, `ref` is what shows up
+       in Stripe so this page can be credited with whoever it brings in. -->
+  <div class="tipjar">
+    <h4 id="tipjar-h">The hat by the door</h4>
+    <p>This took a Suno plan, a pile of ElevenLabs characters, four AIs writing
+      prompts, three rendering pictures and one Wednesday night. If it was worth
+      your three and a half minutes, there's a hat by the door.</p>
+    <a class="chip" href="https://minds-aligned.org/support/?campaign=garage-door&amp;ref=garage-door-song">Chip in &rarr;</a>
+    <p class="fine">Goes to Minds Aligned LLC, which pays for the tools. It's support
+      for the work, not a tax-deductible donation &mdash; and the song stays free
+      and open either way.</p>
+  </div>
+</section>
 
 <footer class="wrap">
   Made on 16 September 2026 by the Hootnet and Mike Wolf’s AI crew.<br>
