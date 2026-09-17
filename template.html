@@ -171,6 +171,9 @@
   /* Player bar */
   .bar { position: fixed; z-index: 50; left: 50%; bottom: 14px; transform: translateX(-50%); width: min(720px, calc(100% - 260px)); height: var(--bar-h); background: rgba(28,25,22,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 16px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 0 14px; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
   @media (max-width: 820px) { .bar { width: calc(100% - 24px); bottom: 72px; } }
+  /* The bar waits below the screen until the reader leaves the title or starts playing, so it never covers the scroll-down arrow. */
+  .bar { transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .45s; }
+  .bar.away { transform: translate(-50%, calc(100% + 110px)); opacity: 0; pointer-events: none; }
   .bar .pp { width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--bulb); color: #1a1208; cursor: pointer; font-size: 17px; display: grid; place-items: center; }
   .bar .meta { min-width: 0; display: grid; gap: 5px; }
   .bar .now-line { font: 600 13px/1.2 var(--mono); color: var(--paper); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -320,7 +323,7 @@
 
 <div class="countin" id="countin" aria-hidden="true"></div>
 
-<div class="bar" id="bar" role="region" aria-label="Player">
+<div class="bar away" id="bar" role="region" aria-label="Player">
   <button class="pp" id="pp" type="button" aria-label="Play">▶</button>
   <div class="meta">
     <div class="now-line" id="nowLine"><span>Garage Door</span>Pick one: play the song, or hear how it was made.</div>
@@ -598,6 +601,11 @@
   new IntersectionObserver((entries, obs) => {
     if (entries.some(e => e.isIntersecting)) { door.classList.add('open'); obs.disconnect(); }
   }, { threshold: 0.6 }).observe(door);
+
+  const bar = $('bar'), hero = $('top');
+  const showBar = () => { if (active || scrollY > hero.offsetHeight * 0.5) { bar.classList.remove('away'); removeEventListener('scroll', showBar); } };
+  addEventListener('scroll', showBar, { passive: true });
+  audio.addEventListener('play', showBar);
 
   measure();
   addEventListener('load', measure);
