@@ -1,0 +1,10 @@
+# Garage Door — the making of a song
+
+> A one-page story of how the rap "Garage Door" was made on 2026-09-16: a remark on the Wednesday Hootnet video call (Jess, Harold, Noel, George, Mike Wolf) about teenagers forming bands became lyrics by Claude and a track by Suno.
+
+- Track: https://suno.com/s/UoHfJj77eEHsg7Al
+- Lyrics: https://garage-door-song.netlify.app/lyrics.txt
+- Image credits, with the exact prompts: https://garage-door-song.netlify.app/credits.json
+- Prompt writers: Claude (Anthropic), GPT-5.5 (OpenAI), Gemini 3.1 Pro (Google), Grok (xAI)
+- Image makers: Grok Imagine (xAI), GPT Image (OpenAI), Nano Banana (Google)
+- Source: https://github.com/eldrgeek/garage-door-song
