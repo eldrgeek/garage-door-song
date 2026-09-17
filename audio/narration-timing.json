@@ -1,0 +1,65 @@
+{
+ "duration": 200.967,
+ "lines": [
+  {
+   "id": "claude_open",
+   "start": 3.2,
+   "end": 25.77
+  },
+  {
+   "id": "claude_lyrics",
+   "start": 26.32,
+   "end": 41.738
+  },
+  {
+   "id": "yeshie_suno",
+   "start": 42.638,
+   "end": 56.384
+  },
+  {
+   "id": "suno_music",
+   "start": 57.284,
+   "end": 69.498
+  },
+  {
+   "id": "claude_brief",
+   "start": 70.398,
+   "end": 82.519
+  },
+  {
+   "id": "grok_prompts",
+   "start": 83.419,
+   "end": 102.412
+  },
+  {
+   "id": "gpt_prompts",
+   "start": 103.312,
+   "end": 118.313
+  },
+  {
+   "id": "gemini_prompts",
+   "start": 119.213,
+   "end": 137.185
+  },
+  {
+   "id": "grokimagine_render",
+   "start": 138.085,
+   "end": 152.528
+  },
+  {
+   "id": "gptimage_render",
+   "start": 153.428,
+   "end": 172.004
+  },
+  {
+   "id": "nano_render",
+   "start": 172.904,
+   "end": 187.161
+  },
+  {
+   "id": "claude_close",
+   "start": 188.061,
+   "end": 200.367
+  }
+ ]
+}

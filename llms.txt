@@ -6,6 +6,7 @@
 - Lyrics: https://garage-door-song.netlify.app/lyrics.txt
 - Timed lyrics (SRT): https://garage-door-song.netlify.app/timed-lyrics.srt
 - The page plays the song and scrolls with it; scrolling or tapping a lyric moves the song to that point.
+- A narrated "How they did it" section: Claude, Yeshie, Suno, Grok, GPT-5.5, Gemini, Grok Imagine, GPT Image and Nano Banana each tell their part in their own ElevenLabs voice. Script: https://garage-door-song.netlify.app/narration.json
 - Image credits, with the exact prompts: https://garage-door-song.netlify.app/credits.json
 - Prompt writers: Claude (Anthropic), GPT-5.5 (OpenAI), Gemini 3.1 Pro (Google), Grok (xAI)
 - Image makers: Grok Imagine (xAI), GPT Image (OpenAI), Nano Banana (Google)

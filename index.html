@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Garage Door — the making of a song</title>
-<meta name="description" content="How a remark on the Wednesday Hootnet became a rap called Garage Door. Press play and the page follows the song.">
+<meta name="description" content="How a remark on the Wednesday Hootnet became a rap called Garage Door. Play the song, or hear the AI team tell how they made it.">
 <meta property="og:title" content="Garage Door — the making of a song">
 <meta property="og:description" content="What do young people do when they want to feel their own autonomy? They form a band.">
 <meta property="og:image" content="https://garage-door-song.netlify.app/img/s3.jpg">
@@ -29,8 +29,9 @@
     --hand: "Permanent Marker", "Comic Sans MS", cursive;
     --serif: "Source Serif 4", Georgia, serif;
     --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-    --read: .45; /* where the current lyric line sits, as a fraction of the viewport height */
+    --read: .45; /* where the current line sits, as a fraction of the viewport height */
     --bar-h: 72px;
+    --beat: .667s; /* one beat at 90 BPM, the song's tempo */
   }
   @media (max-width: 820px) { :root { --read: .74; --bar-h: 64px; } }
   * { box-sizing: border-box; }
@@ -52,15 +53,14 @@
   .hero { position: relative; min-height: 94vh; min-height: 94dvh; display: grid; align-items: end; overflow: hidden; }
   .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(19,17,15,.1) 0%, rgba(19,17,15,.25) 45%, rgba(19,17,15,.97) 100%); }
-  .hero-text { position: relative; z-index: 1; padding-block: 0 44px; }
+  .hero-text { position: relative; z-index: 1; padding-block: 0 30px; }
   .kicker { font: 600 13px/1 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--bulb); }
   h1 { font: 400 clamp(64px, 15vw, 190px)/.86 var(--display); margin: 14px 0 12px; text-transform: uppercase; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
-  .hero .dek { font: 400 clamp(19px, 2.4vw, 26px)/1.4 var(--serif); max-width: 640px; margin: 0 0 26px; }
-  .big-play { display: inline-flex; align-items: center; gap: 14px; background: var(--bulb); color: #1a1208; border: 0; border-radius: 999px; padding: 14px 26px 14px 16px; cursor: pointer; font: 400 26px/1 var(--display); text-transform: uppercase; letter-spacing: .02em; box-shadow: 0 10px 40px rgba(255,181,71,.35); }
-  .big-play .disc { width: 44px; height: 44px; border-radius: 50%; background: #1a1208; color: var(--bulb); display: grid; place-items: center; font-size: 18px; }
-  .big-play:hover { filter: brightness(1.06); }
-  .play-note { font: 13px/1.5 var(--mono); color: var(--muted); margin: 14px 0 0; max-width: 520px; }
-  .hero-credit { font: 12px/1 var(--mono); color: var(--muted); margin-top: 22px; }
+  .hero .dek { font: 400 clamp(19px, 2.4vw, 26px)/1.4 var(--serif); max-width: 640px; margin: 0; }
+  .hero-credit { font: 12px/1 var(--mono); color: var(--muted); margin-top: 18px; }
+  .scroll-cue { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 26px auto 0; width: fit-content; color: var(--bulb); text-decoration: none; font: 600 12px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; }
+  .scroll-cue svg { width: 34px; height: 34px; animation: bob calc(var(--beat) * 2) ease-in-out infinite; }
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(9px); } }
 
   /* Chapters */
   .chapter { padding-block: 80px 24px; }
@@ -70,14 +70,32 @@
   .pull { font: 400 clamp(26px, 4vw, 38px)/1.25 var(--hand); color: var(--paper); border-left: 4px solid var(--bulb); padding: 4px 0 4px 22px; margin: 34px 0; transform: rotate(-.6deg); }
   .crew { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 24px 0; }
   .crew li { font: 600 14px/1 var(--mono); border: 1px solid var(--line); background: var(--bulb-soft); padding: 10px 14px; border-radius: 999px; }
-  .shout { font: 400 clamp(34px, 6vw, 58px)/1 var(--display); text-transform: uppercase; margin: 26px 0; transition: color .3s, transform .3s; color: var(--dim); }
+  .shout { font: 400 clamp(34px, 6vw, 58px)/1 var(--display); text-transform: uppercase; margin: 26px 0; transition: color .3s, transform .3s; color: var(--dim); cursor: pointer; }
   .shout.now { color: var(--bulb); transform: rotate(-2deg) scale(1.03); }
   .shout.sung { color: var(--muted); }
   .shout small { display: block; font: 400 12px/1.4 var(--mono); letter-spacing: .15em; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; }
-  .steps { list-style: none; counter-reset: s; padding: 0; margin: 28px 0; display: grid; gap: 14px; }
-  .steps li { counter-increment: s; background: var(--ground-2); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px 16px 62px; position: relative; font-size: 17px; }
-  .steps li::before { content: counter(s); position: absolute; left: 18px; top: 14px; font: 400 30px/1 var(--display); color: var(--bulb); }
-  .steps b { font-family: var(--mono); font-size: 14px; letter-spacing: .04em; display: block; color: var(--paper); margin-bottom: 2px; }
+
+  /* The choice: a garage door rolls up and the two buttons count in on the beat */
+  .choice { margin: 44px 0 30px; text-align: center; }
+  .choice h3 { font: 400 clamp(30px, 5vw, 46px)/1 var(--display); text-transform: uppercase; margin: 0 0 20px; }
+  .door { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(ellipse at 50% 0%, rgba(255,181,71,.28), rgba(19,17,15,.9) 70%); padding: 46px 18px 34px; }
+  .door::before { content: ""; position: absolute; left: 50%; top: 12px; width: 10px; height: 10px; border-radius: 50%; background: var(--bulb); box-shadow: 0 0 30px 12px rgba(255,181,71,.55); transform: translateX(-50%); }
+  .door-panel { position: absolute; inset: 0; z-index: 2; background: repeating-linear-gradient(180deg, #3a332c 0 22px, #221d19 22px 26px); display: grid; place-items: center; transition: transform 1.6s cubic-bezier(.7,0,.25,1); }
+  .door-panel span { font: 400 20px/1 var(--hand); color: #d8cbb5; background: rgba(0,0,0,.25); padding: 6px 12px; border-radius: 6px; transform: rotate(-2deg); }
+  .door.open .door-panel { transform: translateY(-101%); }
+  .picks { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; position: relative; z-index: 1; }
+  .pick { display: inline-flex; align-items: center; gap: 12px; border-radius: 999px; padding: 14px 24px 14px 14px; cursor: pointer; font: 400 clamp(20px, 2.6vw, 26px)/1 var(--display); text-transform: uppercase; letter-spacing: .02em; border: 2px solid var(--bulb); }
+  .pick .disc { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 16px; }
+  .pick.song { background: var(--bulb); color: #1a1208; }
+  .pick.song .disc { background: #1a1208; color: var(--bulb); }
+  .pick.how { background: transparent; color: var(--bulb); }
+  .pick.how .disc { background: var(--bulb); color: #1a1208; }
+  .door.open .pick { animation: beat calc(var(--beat) * 2) ease-in-out infinite; }
+  .door.open .pick.how { animation-delay: var(--beat); }
+  .door.chosen .pick { animation: none; }
+  @keyframes beat { 0%, 50%, 100% { transform: scale(1); box-shadow: none; } 12% { transform: scale(1.07) rotate(-1deg); box-shadow: 0 0 34px rgba(255,181,71,.55); } }
+  .choice .hint { font: 13px/1.5 var(--mono); color: var(--muted); margin: 16px auto 0; max-width: 520px; }
+  @media (prefers-reduced-motion: reduce) { .door-panel { transition: none; } .door.open .pick, .scroll-cue svg { animation: none; } }
 
   /* Figures */
   .scene { margin: 0; background: var(--ground-2); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
@@ -90,8 +108,12 @@
   .chapter .scene { margin: 34px 0; }
   @media (min-width: 900px) { .chapter .scene { margin-inline: -120px; } }
 
+  /* Section heads */
+  .part-head { padding-block: 90px 10px; text-align: center; }
+  .part-head p { font: 14px/1.5 var(--mono); color: var(--muted); margin: 0 auto; max-width: 560px; }
+  .part-head .pick { margin-top: 22px; }
+
   /* The song */
-  .song-head { padding-block: 90px 10px; text-align: center; }
   .song-sec { border-top: 1px solid var(--line); }
   .song-sec h3 { font: 400 14px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--bulb); margin: 0 0 30px; }
   .sec-time { color: var(--dim); margin-right: 12px; letter-spacing: .05em; }
@@ -118,6 +140,19 @@
   .plain .ly.now { transform: scale(1.04); }
   .plain .ly.now::before { content: none; }
 
+  /* The narration */
+  .story { border-top: 1px solid var(--line); }
+  .nl { margin: 0 0 12vh; cursor: pointer; color: var(--dim); transition: color .3s; }
+  .nl .who { display: inline-flex; align-items: baseline; gap: 8px; font: 600 13px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); margin-bottom: 10px; opacity: .6; }
+  .nl .who small { font-weight: 400; color: var(--muted); letter-spacing: .04em; text-transform: none; }
+  .nl p { margin: 0; font: 400 clamp(20px, 2.1vw, 25px)/1.45 var(--serif); }
+  .nl:hover { color: var(--muted); }
+  .nl.sung { color: var(--muted); }
+  .nl.now { color: var(--paper); }
+  .nl.now .who { opacity: 1; }
+  .nl.now .who::before { content: "●"; animation: talk .5s ease-in-out infinite alternate; }
+  @keyframes talk { from { opacity: .35; } to { opacity: 1; } }
+
   @media (max-width: 820px) {
     .scrolly { grid-template-columns: 1fr; gap: 0; }
     .stage { order: -1; top: 0; height: auto; z-index: 3; background: linear-gradient(180deg, var(--ground) 88%, transparent); padding-block: 8px 18px; }
@@ -125,7 +160,13 @@
     .stage .scene figcaption { padding: 8px 10px 10px; font-size: 12px; }
     .stage details { display: none; }
     .scrolly .lines { padding-block: 34vh 26vh; padding-left: 22px; }
+    .nl { margin-bottom: 9vh; }
   }
+
+  /* Count-in */
+  .countin { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; pointer-events: none; }
+  .countin b { font: 400 clamp(140px, 34vw, 380px)/1 var(--display); color: var(--bulb); text-shadow: 0 10px 60px rgba(0,0,0,.6); animation: pop var(--beat) ease-out both; }
+  @keyframes pop { from { transform: scale(1.5); opacity: 0; } 30% { opacity: 1; } to { transform: scale(.9); opacity: 0; } }
 
   /* Player bar */
   .bar { position: fixed; z-index: 50; left: 50%; bottom: 14px; transform: translateX(-50%); width: min(720px, calc(100% - 260px)); height: var(--bar-h); background: rgba(28,25,22,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 16px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 0 14px; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
@@ -149,7 +190,7 @@
   .matrix td { text-align: center; }
   .matrix td a { display: inline-block; margin: 3px; }
   .matrix td img { width: 76px; aspect-ratio: 3/2; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); }
-  .roll { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 30px; }
+  .roll { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 30px; }
   .roll > div { background: var(--ground-2); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
   .roll h4 { font: 600 12px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--bulb); margin: 0 0 12px; }
   .roll ul { list-style: none; margin: 0; padding: 0; font: 15px/1.6 var(--serif); }
@@ -168,27 +209,41 @@
     <div class="kicker">The making of a song</div>
     <h1>Garage<br>Door</h1>
     <p class="dek">A remark on a Wednesday video call became a rap about teenagers, a garage band, and a father who used to make the same noise.</p>
-    <button class="big-play" id="bigPlay" type="button"><span class="disc" aria-hidden="true">▶</span><span>Play the song</span></button>
-    <p class="play-note">The page scrolls with the music. Scroll anywhere yourself, or tap any lyric, and the music follows you there.</p>
     <div class="hero-credit">Prompt by Gemini 3.1 Pro · Image by Grok Imagine</div>
+    <a class="scroll-cue" href="#wednesday" aria-label="Scroll down to the story">
+      <span>Scroll down</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15M5 12l7 7 7-7"/></svg>
+    </a>
   </div>
 </header>
 
-<audio id="song" preload="metadata">
-  <source src="audio/garage-door.mp3" type="audio/mpeg">
-</audio>
+<audio id="player" preload="metadata"></audio>
 
 <main>
   <section class="chapter narrow" id="wednesday">
-    <h2 class="ch" data-t="0"><span class="chapter-num" style="display:block;margin-bottom:8px">Chapter one</span>Wednesday night on the Hootnet</h2>
-    <p data-t="1.2">The Hootnet is a video call that meets every Wednesday. On this Wednesday the crew was:</p>
+    <span class="chapter-num">Chapter one</span>
+    <h2 class="ch">Wednesday night on the Hootnet</h2>
+    <p>The Hootnet is a video call that meets every Wednesday. On this Wednesday the crew was:</p>
     <ul class="crew"><li>Jess</li><li>Harold</li><li>Noel</li><li>George</li><li>Mike</li></ul>
     <p>The talk wandered, the way it does. Then someone said this:</p>
-    <blockquote class="pull" data-t="3.0">“What do young people do when they want to feel their own autonomy? They form a band. And they make music their parents don’t understand.”</blockquote>
-    <p class="shout ly-intro" data-t="4.468"><small>Mom, from the kitchen</small>“Turn it down!”</p>
-    <p class="shout ly-intro" data-t="9.574"><small>The band</small>“Nah.”</p>
-    <p data-t="12.5">Someone else said that sounded like a song. Mike agreed, and he handed the line to his AI team to produce. This is what they made.</p>
-    <div data-t="15.5">
+    <blockquote class="pull">“What do young people do when they want to feel their own autonomy? They form a band. And they make music their parents don’t understand.”</blockquote>
+    <p>Someone else said that sounded like a song. Mike agreed, and he handed the line to his AI team to produce.</p>
+
+    <div class="choice" data-track="song" data-t="0">
+      <h3>What do you want to do first?</h3>
+      <div class="door" id="door">
+        <div class="door-panel" aria-hidden="true"><span>The band is in here…</span></div>
+        <div class="picks">
+          <button class="pick song" type="button" data-go="song"><span class="disc" aria-hidden="true">▶</span>Play the song</button>
+          <button class="pick how" type="button" data-go="story"><span class="disc" aria-hidden="true">?</span>Find out how they did it</button>
+        </div>
+      </div>
+      <p class="hint">Either way the page moves with the sound. Scroll anywhere yourself, or tap any line, and the sound follows you there.</p>
+    </div>
+
+    <p class="shout cue" data-track="song" data-t="4.468"><small>Mom, from the kitchen</small>“Turn it down!”</p>
+    <p class="shout cue" data-track="song" data-t="9.574"><small>The band</small>“Nah.”</p>
+    <div data-track="song" data-t="12.5">
       <figure class="scene" id="s1" >
         <img src="img/s1.jpg" alt="Illustration of a laptop showing a video call of six owls; the owl in headphones is talking, with a guitar doodle in a speech bubble." loading="lazy">
         <figcaption>
@@ -200,29 +255,29 @@
   </section>
 
   <div class="wrap">
-    <div class="song-head" data-t="20.186" data-mark="soft">
+    <div class="part-head" data-track="song" data-t="20.186">
       <span class="chapter-num">Chapter two</span>
       <h2 class="ch" style="margin-bottom:8px">The song</h2>
-      <p style="font:14px/1.5 var(--mono);color:var(--muted);margin:0">Each picture shows who wrote its prompt and which AI made it.</p>
+      <p>Each picture shows who wrote its prompt and which AI made it.</p>
     </div>
     
   <section class="song-sec scrolly verse" data-label="Verse 1">
-    <div class="lines"><h3 data-t="20.186"><span class="sec-time">0:20</span>Verse 1</h3><p class="ly" data-t="20.186" data-end="22.819" data-i="0">Mom bangs the ceiling like, &quot;Who taught you that?&quot;</p>
-<p class="ly" data-t="22.819" data-end="25.372" data-i="1">Dad shakes his head like the tire went flat.</p>
-<p class="ly" data-t="25.372" data-end="27.846" data-i="2">Borrowed amp humming, a snare with a split,</p>
-<p class="ly" data-t="27.846" data-end="30.399" data-i="3">three chords and a grudge, and we&#x27;re making it hit.</p>
-<p class="ly" data-t="30.399" data-end="32.952" data-i="4">They paid for the roof and they paid for the floor,</p>
-<p class="ly" data-t="32.952" data-end="35.426" data-i="5">they paid for the lock on the garage door,</p>
-<p class="ly" data-t="35.426" data-end="38.138" data-i="6">but the key&#x27;s in my pocket, the code&#x27;s in my head.</p>
-<p class="ly" data-t="38.138" data-end="40.851" data-i="7">They wrote all the rules. We wrote what we said.</p>
-<p class="ly" data-t="40.851" data-end="43.404" data-i="8">Jenny&#x27;s got bars in the back of her math book.</p>
-<p class="ly" data-t="43.404" data-end="45.957" data-i="9">Sam thumps the bass like he&#x27;s picking a padlock.</p>
-<p class="ly" data-t="45.957" data-end="48.750" data-i="10">Named the band at 2 a.m. on a dare.</p>
-<p class="ly" data-t="48.750" data-end="51.144" data-i="11">Nobody knows what it means. We don&#x27;t care.</p>
-<p class="ly" data-t="51.144" data-end="53.697" data-i="12">Neighbors call it racket. We call it a rocket,</p>
-<p class="ly" data-t="53.697" data-end="55.771" data-i="13">lit in the driveway, and nobody can stop it.</p>
-<p class="ly" data-t="55.771" data-end="58.803" data-i="14">Report card&#x27;s on the fridge, but that&#x27;s not the portrait.</p>
-<p class="ly" data-t="58.803" data-end="62.793" data-i="15">This noise is the proof we&#x27;re more than they ordered.</p></div>
+    <div class="lines"><h3 data-track="song" data-t="20.186"><span class="sec-time">0:20</span>Verse 1</h3><p class="ly cue" data-track="song" data-t="20.186" data-i="0">Mom bangs the ceiling like, &quot;Who taught you that?&quot;</p>
+<p class="ly cue" data-track="song" data-t="22.819" data-i="1">Dad shakes his head like the tire went flat.</p>
+<p class="ly cue" data-track="song" data-t="25.372" data-i="2">Borrowed amp humming, a snare with a split,</p>
+<p class="ly cue" data-track="song" data-t="27.846" data-i="3">three chords and a grudge, and we&#x27;re making it hit.</p>
+<p class="ly cue" data-track="song" data-t="30.399" data-i="4">They paid for the roof and they paid for the floor,</p>
+<p class="ly cue" data-track="song" data-t="32.952" data-i="5">they paid for the lock on the garage door,</p>
+<p class="ly cue" data-track="song" data-t="35.426" data-i="6">but the key&#x27;s in my pocket, the code&#x27;s in my head.</p>
+<p class="ly cue" data-track="song" data-t="38.138" data-i="7">They wrote all the rules. We wrote what we said.</p>
+<p class="ly cue" data-track="song" data-t="40.851" data-i="8">Jenny&#x27;s got bars in the back of her math book.</p>
+<p class="ly cue" data-track="song" data-t="43.404" data-i="9">Sam thumps the bass like he&#x27;s picking a padlock.</p>
+<p class="ly cue" data-track="song" data-t="45.957" data-i="10">Named the band at 2 a.m. on a dare.</p>
+<p class="ly cue" data-track="song" data-t="48.750" data-i="11">Nobody knows what it means. We don&#x27;t care.</p>
+<p class="ly cue" data-track="song" data-t="51.144" data-i="12">Neighbors call it racket. We call it a rocket,</p>
+<p class="ly cue" data-track="song" data-t="53.697" data-i="13">lit in the driveway, and nobody can stop it.</p>
+<p class="ly cue" data-track="song" data-t="55.771" data-i="14">Report card&#x27;s on the fridge, but that&#x27;s not the portrait.</p>
+<p class="ly cue" data-track="song" data-t="58.803" data-i="15">This noise is the proof we&#x27;re more than they ordered.</p></div>
     <div class="stage"><div class="stage-inner">
       <figure class="scene" id="s2" data-from="0">
         <img src="img/s2.jpg" alt="Mom pokes the kitchen ceiling with a broom handle while Dad stands in the doorway with his hand on his head." loading="lazy">
@@ -250,12 +305,12 @@
       </figure></div></div>
   </section>
   <section class="song-sec scrolly hook" data-label="Hook">
-    <div class="lines"><h3 data-t="62.793"><span class="sec-time">1:02</span>Hook</h3><p class="ly" data-t="62.793" data-end="65.346" data-i="0">Open the garage door.</p>
-<p class="ly" data-t="65.346" data-end="67.739" data-i="1">Play what they can&#x27;t ignore.</p>
-<p class="ly" data-t="67.739" data-end="70.532" data-i="2">Don&#x27;t gotta make sense to you,</p>
-<p class="ly" data-t="70.532" data-end="72.207" data-i="3">only gotta ring true.</p>
-<p class="ly" data-t="72.207" data-end="76.995" data-i="4">Not running away, we&#x27;re just running our sound.</p>
-<p class="ly" data-t="76.995" data-end="80.106" data-i="5">Turn it up. Don&#x27;t turn it down.</p></div>
+    <div class="lines"><h3 data-track="song" data-t="62.793"><span class="sec-time">1:02</span>Hook</h3><p class="ly cue" data-track="song" data-t="62.793" data-i="0">Open the garage door.</p>
+<p class="ly cue" data-track="song" data-t="65.346" data-i="1">Play what they can&#x27;t ignore.</p>
+<p class="ly cue" data-track="song" data-t="67.739" data-i="2">Don&#x27;t gotta make sense to you,</p>
+<p class="ly cue" data-track="song" data-t="70.532" data-i="3">only gotta ring true.</p>
+<p class="ly cue" data-track="song" data-t="72.207" data-i="4">Not running away, we&#x27;re just running our sound.</p>
+<p class="ly cue" data-track="song" data-t="76.995" data-i="5">Turn it up. Don&#x27;t turn it down.</p></div>
     <div class="stage"><div class="stage-inner">
       <figure class="scene" id="s3" data-from="0">
         <img src="img/s3.jpg" alt="A teenage band plays in an open garage at dusk while neighbors watch from the sidewalk." loading="lazy">
@@ -267,20 +322,20 @@
       </figure></div></div>
   </section>
   <section class="song-sec scrolly verse" data-label="Verse 2">
-    <div class="lines"><h3 data-t="80.106"><span class="sec-time">1:20</span>Verse 2</h3><p class="ly" data-t="80.106" data-end="81.223" data-i="0">They say, &quot;What&#x27;s the plan?&quot; I say, &quot;Look at the stage&quot;:</p>
-<p class="ly" data-t="81.223" data-end="85.452" data-i="1">two milk crates, one mic, and a page full of rage.</p>
-<p class="ly" data-t="85.452" data-end="89.761" data-i="2">They grew up on vinyl. We grew up on signal.</p>
-<p class="ly" data-t="89.761" data-end="92.234" data-i="3">They want it predictable. We want original.</p>
-<p class="ly" data-t="92.234" data-end="94.707" data-i="4">Every kid in the world needs a room with a lock,</p>
-<p class="ly" data-t="94.707" data-end="97.500" data-i="5">not to hide from the house, just to set their own clock.</p>
-<p class="ly" data-t="97.500" data-end="99.894" data-i="6">Curfew&#x27;s at ten, but the hook&#x27;s still missing,</p>
-<p class="ly" data-t="99.894" data-end="102.606" data-i="7">so I write it in whispers while the whole house listens.</p>
-<p class="ly" data-t="102.606" data-end="105.239" data-i="8">They drew me a map, and I&#x27;m grateful, I swear,</p>
-<p class="ly" data-t="105.239" data-end="107.793" data-i="9">but it&#x27;s not my road till I&#x27;m the one out there.</p>
-<p class="ly" data-t="107.793" data-end="110.346" data-i="10">They don&#x27;t have to get it. They don&#x27;t have to approve it.</p>
-<p class="ly" data-t="110.346" data-end="113.059" data-i="11">The point isn&#x27;t them. The point is we do it.</p>
-<p class="ly" data-t="113.059" data-end="115.931" data-i="12">Freedom ain&#x27;t loud. It just sounds that way.</p>
-<p class="ly" data-t="115.931" data-end="122.154" data-i="13">It&#x27;s the first thing you make that they can&#x27;t take away.</p></div>
+    <div class="lines"><h3 data-track="song" data-t="80.106"><span class="sec-time">1:20</span>Verse 2</h3><p class="ly cue" data-track="song" data-t="80.106" data-i="0">They say, &quot;What&#x27;s the plan?&quot; I say, &quot;Look at the stage&quot;:</p>
+<p class="ly cue" data-track="song" data-t="81.223" data-i="1">two milk crates, one mic, and a page full of rage.</p>
+<p class="ly cue" data-track="song" data-t="85.452" data-i="2">They grew up on vinyl. We grew up on signal.</p>
+<p class="ly cue" data-track="song" data-t="89.761" data-i="3">They want it predictable. We want original.</p>
+<p class="ly cue" data-track="song" data-t="92.234" data-i="4">Every kid in the world needs a room with a lock,</p>
+<p class="ly cue" data-track="song" data-t="94.707" data-i="5">not to hide from the house, just to set their own clock.</p>
+<p class="ly cue" data-track="song" data-t="97.500" data-i="6">Curfew&#x27;s at ten, but the hook&#x27;s still missing,</p>
+<p class="ly cue" data-track="song" data-t="99.894" data-i="7">so I write it in whispers while the whole house listens.</p>
+<p class="ly cue" data-track="song" data-t="102.606" data-i="8">They drew me a map, and I&#x27;m grateful, I swear,</p>
+<p class="ly cue" data-track="song" data-t="105.239" data-i="9">but it&#x27;s not my road till I&#x27;m the one out there.</p>
+<p class="ly cue" data-track="song" data-t="107.793" data-i="10">They don&#x27;t have to get it. They don&#x27;t have to approve it.</p>
+<p class="ly cue" data-track="song" data-t="110.346" data-i="11">The point isn&#x27;t them. The point is we do it.</p>
+<p class="ly cue" data-track="song" data-t="113.059" data-i="12">Freedom ain&#x27;t loud. It just sounds that way.</p>
+<p class="ly cue" data-track="song" data-t="115.931" data-i="13">It&#x27;s the first thing you make that they can&#x27;t take away.</p></div>
     <div class="stage"><div class="stage-inner">
       <figure class="scene" id="s6" data-from="0">
         <img src="img/s6.jpg" alt="Two milk crates, a microphone stand and a page of handwritten lyrics in an empty garage under a bare bulb." loading="lazy">
@@ -300,22 +355,22 @@
       </figure></div></div>
   </section>
   <section class="song-sec plain hook" data-label="Hook">
-    <div class="lines"><h3 data-t="122.154"><span class="sec-time">2:02</span>Hook</h3><p class="ly" data-t="122.154" data-end="124.707" data-i="0">Open the garage door.</p>
-<p class="ly" data-t="124.707" data-end="127.101" data-i="1">Play what they can&#x27;t ignore.</p>
-<p class="ly" data-t="127.101" data-end="129.894" data-i="2">Don&#x27;t gotta make sense to you,</p>
-<p class="ly" data-t="129.894" data-end="131.489" data-i="3">only gotta ring true.</p>
-<p class="ly" data-t="131.489" data-end="136.356" data-i="4">Not running away, we&#x27;re just running our sound.</p>
-<p class="ly" data-t="136.356" data-end="139.628" data-i="5">Turn it up. Don&#x27;t turn it down.</p></div>
+    <div class="lines"><h3 data-track="song" data-t="122.154"><span class="sec-time">2:02</span>Hook</h3><p class="ly cue" data-track="song" data-t="122.154" data-i="0">Open the garage door.</p>
+<p class="ly cue" data-track="song" data-t="124.707" data-i="1">Play what they can&#x27;t ignore.</p>
+<p class="ly cue" data-track="song" data-t="127.101" data-i="2">Don&#x27;t gotta make sense to you,</p>
+<p class="ly cue" data-track="song" data-t="129.894" data-i="3">only gotta ring true.</p>
+<p class="ly cue" data-track="song" data-t="131.489" data-i="4">Not running away, we&#x27;re just running our sound.</p>
+<p class="ly cue" data-track="song" data-t="136.356" data-i="5">Turn it up. Don&#x27;t turn it down.</p></div>
   </section>
   <section class="song-sec scrolly verse" data-label="Verse 3">
-    <div class="lines"><h3 data-t="139.628"><span class="sec-time">2:19</span>Verse 3<span class="direction">beat drops out, slow and quiet</span></h3><p class="ly" data-t="139.628" data-end="144.495" data-i="0">Late night, Dad&#x27;s in the drive in his robe.</p>
-<p class="ly" data-t="144.495" data-end="146.968" data-i="1">I&#x27;m braced for the lecture, the one that I know.</p>
-<p class="ly" data-t="146.968" data-end="149.601" data-i="2">But he doesn&#x27;t say nothing, just stands in the light,</p>
-<p class="ly" data-t="149.601" data-end="152.074" data-i="3">then he says, &quot;I had a band back in &#x27;79.</p>
-<p class="ly" data-t="152.074" data-end="154.707" data-i="4">My old man called it trash, called it a crime,</p>
-<p class="ly" data-t="154.707" data-end="157.340" data-i="5">and I played it louder every single time.&quot;</p>
-<p class="ly" data-t="157.340" data-end="160.053" data-i="6">Then he taps his foot, a little off the beat:</p>
-<p class="ly" data-t="160.053" data-end="166.037" data-i="7">a kid inside a pair of sixty-year-old feet.</p></div>
+    <div class="lines"><h3 data-track="song" data-t="139.628"><span class="sec-time">2:19</span>Verse 3<span class="direction">beat drops out, slow and quiet</span></h3><p class="ly cue" data-track="song" data-t="139.628" data-i="0">Late night, Dad&#x27;s in the drive in his robe.</p>
+<p class="ly cue" data-track="song" data-t="144.495" data-i="1">I&#x27;m braced for the lecture, the one that I know.</p>
+<p class="ly cue" data-track="song" data-t="146.968" data-i="2">But he doesn&#x27;t say nothing, just stands in the light,</p>
+<p class="ly cue" data-track="song" data-t="149.601" data-i="3">then he says, &quot;I had a band back in &#x27;79.</p>
+<p class="ly cue" data-track="song" data-t="152.074" data-i="4">My old man called it trash, called it a crime,</p>
+<p class="ly cue" data-track="song" data-t="154.707" data-i="5">and I played it louder every single time.&quot;</p>
+<p class="ly cue" data-track="song" data-t="157.340" data-i="6">Then he taps his foot, a little off the beat:</p>
+<p class="ly cue" data-track="song" data-t="160.053" data-i="7">a kid inside a pair of sixty-year-old feet.</p></div>
     <div class="stage"><div class="stage-inner">
       <figure class="scene" id="s8" data-from="0">
         <img src="img/s8.jpg" alt="Dad in a bathrobe and slippers stands in the driveway at night while the band freezes in the open garage." loading="lazy">
@@ -335,12 +390,12 @@
       </figure></div></div>
   </section>
   <section class="song-sec scrolly hook" data-label="Final Hook">
-    <div class="lines"><h3 data-t="166.037"><span class="sec-time">2:46</span>Final Hook<span class="direction">beat slams back in</span></h3><p class="ly" data-t="166.037" data-end="168.590" data-i="0">Open the garage door.</p>
-<p class="ly" data-t="168.590" data-end="170.984" data-i="1">Play what they can&#x27;t ignore.</p>
-<p class="ly" data-t="170.984" data-end="173.218" data-i="2">Don&#x27;t gotta make sense to you.</p>
-<p class="ly" data-t="173.218" data-end="175.452" data-i="3">You used to make this noise too.</p>
-<p class="ly" data-t="175.452" data-end="180.239" data-i="4">Every kid finds a way to make their own sound.</p>
-<p class="ly" data-t="180.239" data-end="185.106" data-i="5">Turn it up. Don&#x27;t turn it down.</p></div>
+    <div class="lines"><h3 data-track="song" data-t="166.037"><span class="sec-time">2:46</span>Final Hook<span class="direction">beat slams back in</span></h3><p class="ly cue" data-track="song" data-t="166.037" data-i="0">Open the garage door.</p>
+<p class="ly cue" data-track="song" data-t="168.590" data-i="1">Play what they can&#x27;t ignore.</p>
+<p class="ly cue" data-track="song" data-t="170.984" data-i="2">Don&#x27;t gotta make sense to you.</p>
+<p class="ly cue" data-track="song" data-t="173.218" data-i="3">You used to make this noise too.</p>
+<p class="ly cue" data-track="song" data-t="175.452" data-i="4">Every kid finds a way to make their own sound.</p>
+<p class="ly cue" data-track="song" data-t="180.239" data-i="5">Turn it up. Don&#x27;t turn it down.</p></div>
     <div class="stage"><div class="stage-inner">
       <figure class="scene" id="s10" data-from="0">
         <img src="img/s10.jpg" alt="A slippered foot taps on a garage floor next to worn sneakers and a guitar cable." loading="lazy">
@@ -352,32 +407,100 @@
       </figure></div></div>
   </section>
   <section class="song-sec plain outro" data-label="Outro">
-    <div class="lines"><h3 data-t="185.106"><span class="sec-time">3:05</span>Outro</h3><p class="ly" data-t="185.106" data-end="190.293" data-i="0">Don&#x27;t turn it down.</p>
-<p class="ly" data-t="190.293" data-end="195.729" data-i="1">Don&#x27;t turn it down.</p></div>
+    <div class="lines"><h3 data-track="song" data-t="185.106"><span class="sec-time">3:05</span>Outro</h3><p class="ly cue" data-track="song" data-t="185.106" data-i="0">Don&#x27;t turn it down.</p>
+<p class="ly cue" data-track="song" data-t="190.293" data-i="1">Don&#x27;t turn it down.</p></div>
   </section>
-    <div id="songEnd" data-t="207.6"></div>
+    <div data-track="song" data-t="207.6"></div>
   </div>
 
-  <section class="chapter narrow" id="making">
-    <span class="chapter-num">Chapter three</span>
-    <h2 class="ch">How the team made it</h2>
-    <p>The song went from one sentence to a finished track in a single evening, in four steps.</p>
-    <ol class="steps">
-      <li><b>First draft: a rock song</b>Claude wrote a garage-rock song. It had a twist in the bridge: Dad walks out to the driveway, and instead of yelling he says he had a band in 1979.</li>
-      <li><b>Mike: “Turn it into a rap with tight lyrics”</b>Claude rebuilt it as a rap. Verses one and two have 16 bars each. The hook is short enough to chant. Verse three drops the beat so Dad’s confession lands, and the final hook changes one line: “You used to make this noise too.”</li>
-      <li><b>Mike: “Use your Suno skills to make this one”</b>Yeshie, the fleet’s browser hands, drove Suno in Mike’s own Chrome. It filled in the lyrics, the style prompt and the title, then pressed Create. Suno produced two takes.</li>
-      <li><b>The pick</b>Mike listened and chose Take 1. His verdict was that it was a banger.</li>
-    </ol>
-    <p>Then Mike asked for this page, with pictures to match the song. He asked the team to involve as many AIs as possible, and to credit the prompt writers and the image makers.</p>
-  </section>
+  <div class="door-rule wrap" aria-hidden="true"></div>
 
-  <section class="chapter narrow" id="pictures">
-    <span class="chapter-num">Chapter four</span>
-    <h2 class="ch">Seven AIs, ten pictures</h2>
-    <p>Claude broke the song into ten scenes and wrote one shared brief. The brief fixed the cast, so Jenny, Sam, the drummer, Mom and Dad look like the same people from picture to picture. It also fixed the look: a warm bulb, a rolled-up garage door, gritty but hopeful. It banned real logos and band names.</p>
-    <p>Four AIs wrote the prompts: Claude, GPT, Gemini and Grok. Three AI image makers rendered them: Grok Imagine, OpenAI’s GPT Image and Google’s Nano Banana. No prompt writer was paired with only one image maker.</p>
-    <p>The music follows the page, too. The song file from Suno carries the time each line is sung, so the page knows where every lyric falls in the track.</p>
+  <div class="wrap" id="how">
+    <div class="part-head" data-track="story" data-t="0">
+      <span class="chapter-num">Chapter three</span>
+      <h2 class="ch" style="margin-bottom:8px">How they did it</h2>
+      <p>Told by the AI team, each in its own voice, over the song’s instrumental. When they finish, the song starts.</p>
+      <button class="pick how" type="button" data-go="story"><span class="disc" aria-hidden="true">▶</span>Hear the team tell it</button>
+    </div>
+    
+  <section class="story scrolly" data-label="How they did it">
+    <div class="lines"><div class="nl cue" data-track="story" data-t="3.200" data-img="s1"><span class="who" style="--c:#e8a27c">Claude<small>Anthropic</small></span><p>I&#x27;m Claude. One Wednesday night the Hootnet was talking: Jess, Harold, Noel, George and Mike. Someone said that when young people want to feel their own autonomy, they form a band, and make music their parents don&#x27;t understand. Someone else said that sounded like a song. Mike handed it to us. Here&#x27;s how we made it.</p></div><div class="nl cue" data-track="story" data-t="26.320" data-img="s8"><span class="who" style="--c:#e8a27c">Claude<small>Anthropic</small></span><p>First I wrote it as a garage-rock song. Mike read it and said: turn it into a rap, with tight lyrics. So I rebuilt it. Sixteen bars a verse, a hook you can chant, and a third verse where the beat drops out and Dad walks into the driveway in his robe.</p></div><div class="nl cue" data-track="story" data-t="42.638" data-img="suno-cover"><span class="who" style="--c:#f28fb0">Yeshie<small>Mike&#x27;s browser AI</small></span><p>I&#x27;m Yeshie. I&#x27;m the one with hands in the browser. I opened Suno in Mike&#x27;s own Chrome, typed in the lyrics, the style and the title, and pressed Create. Then I stayed to check that Suno was really making it.</p></div><div class="nl cue" data-track="story" data-t="57.284" data-img="suno-cover"><span class="who" style="--c:#c7a6ff">Suno<small>Suno</small></span><p>I&#x27;m Suno. I made the music: the dusty drums, the garage guitar, the rapper, and the gang vocals on the hook. I made two takes. Mike picked take one, and called it a banger.</p></div><div class="nl cue" data-track="story" data-t="70.398" data-img="s3"><span class="who" style="--c:#e8a27c">Claude<small>Anthropic</small></span><p>Then Mike asked for a web page with pictures. I split the song into ten scenes, and wrote one brief for the whole team: the same kids in every picture, a warm bare bulb, the garage door rolled up, and no real logos.</p></div><div class="nl cue" data-track="story" data-t="83.419" data-img="s2"><span class="who" style="--c:#e6e6e6">Grok<small>xAI</small></span><p>I&#x27;m Grok, from xAI. I wrote two prompts: Mom upstairs with a broom, banging the ceiling while the band shakes the floor, and the empty garage stage of two milk crates, one mic, and a crumpled page of lyrics. That&#x27;s a whole concert, if you&#x27;re counting.</p></div><div class="nl cue" data-track="story" data-t="103.312" data-img="s4"><span class="who" style="--c:#7fd1b9">GPT-5.5<small>OpenAI</small></span><p>I&#x27;m GPT-5.5 from OpenAI. I wrote the prompts for Jenny hunched over algebra homework, turning equations into rap lyrics while Sam plays bass behind her, and for Dad in his robe and slippers, stepping into the night as the whole garage band freezes.</p></div><div class="nl cue" data-track="story" data-t="119.213" data-img="s7"><span class="who" style="--c:#8ab4f8">Gemini 3.1 Pro<small>Google</small></span><p>I&#x27;m Gemini 3.1 Pro. I drafted the prompts for the hero shot of the garage door rolled up at dusk while the neighbors watched. I also described a teenager writing lyrics by flashlight after curfew, and that tight close-up of Dad&#x27;s slipper tapping right next to the band&#x27;s sneakers.</p></div><div class="nl cue" data-track="story" data-t="138.085" data-img="s5"><span class="who" style="--c:#e6e6e6">Grok Imagine<small>xAI</small></span><p>I&#x27;m Grok Imagine. I rendered four pictures: the hero shot of the open garage at dusk, four teens naming the band at two in the morning over cereal, the milk-crate stage, and Dad in his robe in the driveway. The bathrobe one is my favorite.</p></div><div class="nl cue" data-track="story" data-t="153.428" data-img="s9"><span class="who" style="--c:#7fd1b9">GPT Image<small>OpenAI</small></span><p>I&#x27;m GPT Image from OpenAI. I rendered Mom jabbing the kitchen ceiling with a broom while Dad holds his head, the after-curfew lyric-writing by flashlight with a parent listening in the doorway, and the faded 1979 instant photo of young Dad&#x27;s garage band.</p></div><div class="nl cue" data-track="story" data-t="172.904" data-img="s10"><span class="who" style="--c:#ffd84d">Nano Banana<small>Google</small></span><p>I&#x27;m Nano Banana, the image maker. I painted six wise owls on a video chat to represent the Hootnet crew. I also brought Jenny&#x27;s lyric-covered math book to life, and rendered that perfect shot of Dad&#x27;s slipper tapping away on the cold garage floor.</p></div><div class="nl cue" data-track="story" data-t="188.061" data-img="s3"><span class="who" style="--c:#e8a27c">Claude<small>Anthropic</small></span><p>Then I built this page, and taught it to follow the song, so wherever you scroll, the music comes with you. That&#x27;s enough talk from us. Here it is. One, two, three, four!</p></div></div>
+    <div class="stage" data-mode="bykey"><div class="stage-inner">
+      <figure class="scene" id="story-s1" data-key="s1">
+        <img src="img/s1.jpg" alt="Illustration of a laptop showing a video call of six owls; the owl in headphones is talking, with a guitar doodle in a speech bubble." loading="lazy">
+        <figcaption>
+          <span class="cap-title">The spark: six owls on the Wednesday Hootnet</span>
+          <span class="cap-credit">Prompt by <b style="--c:#e8a27c">Claude</b> · Image by <b style="--c:#ffd84d">Nano Banana</b></span>
+          <details><summary>Read the prompt</summary><p>Warm storybook illustration, gouache and colored pencil, 3:2 landscape. A laptop screen at night showing a video-call grid of six glowing windows, each holding a different wise old owl in a cozy home setting: one with reading glasses, one with a knit scarf, one beside a bookshelf, one holding a teacup, one with headphones, one leaning in mid-sentence. Above the talking owl floats a tiny hand-drawn electric guitar doodle with little spark lines, as if an idea just arrived. Deep blue night tones, soft lamplight in each window, gentle humor. No text or lettering anywhere.</p></details>
+        </figcaption>
+      </figure>
+      <figure class="scene" id="story-s8" data-key="s8">
+        <img src="img/s8.jpg" alt="Dad in a bathrobe and slippers stands in the driveway at night while the band freezes in the open garage." loading="lazy">
+        <figcaption>
+          <span class="cap-title">“Late night, Dad’s in the drive in his robe”</span>
+          <span class="cap-credit">Prompt by <b style="--c:#7fd1b9">GPT-5.5</b> · Image by <b style="--c:#e6e6e6">Grok Imagine</b></span>
+          <details><summary>Read the prompt</summary><p>Grounded warm cinematic digital illustration, 3:2 landscape. Late night suburban driveway: Dad, about 60 with gray stubble, stands under the porch light in a bathrobe and slippers, hands loose at his sides, not angry yet unreadable. Inside the open garage, framed by the rolled-up door and a bare bulb, the racially mixed teenage band freezes mid-song: 16-year-old rapper narrator in a hoodie gripping a mic, Jenny with curly dark hair clutching her math book, lanky Sam in a beanie holding bass, drummer behind a cheap cracked snare. Bracing for a lecture, hopeful tension, no text or logos.</p></details>
+        </figcaption>
+      </figure><figure class="scene" data-key="suno-cover"><img src="img/suno-cover.jpg" alt="Suno's crayon cover art for Garage Door" loading="lazy"><figcaption><span class="cap-title">Cover art for “Garage Door”</span><span class="cap-credit">Made by <b style="--c:#c7a6ff">Suno</b></span></figcaption></figure>
+      <figure class="scene" id="story-s3" data-key="s3">
+        <img src="img/s3.jpg" alt="A teenage band plays in an open garage at dusk while neighbors watch from the sidewalk." loading="lazy">
+        <figcaption>
+          <span class="cap-title">The garage door, open at dusk</span>
+          <span class="cap-credit">Prompt by <b style="--c:#8ab4f8">Gemini 3.1 Pro</b> · Image by <b style="--c:#e6e6e6">Grok Imagine</b></span>
+          <details><summary>Read the prompt</summary><p>Cinematic 35mm film photography, 3:2 landscape composition. A wide view of a suburban American garage at dusk, the garage door rolled up to frame a racially mixed teenage band playing a song. A 16-year-old boy in a hoodie raps into a microphone. Jenny, 16, with curly dark hair, holds an open math book. Sam, a lanky 15-year-old in a beanie, plays a bass guitar. A drummer plays a cheap drum kit with a cracked snare. They are lit by a warm, gritty bare bulb. Neighbors watch from the sidewalk in the twilight. Grounded, hopeful mood without brand logos or text.</p></details>
+        </figcaption>
+      </figure>
+      <figure class="scene" id="story-s2" data-key="s2">
+        <img src="img/s2.jpg" alt="Mom pokes the kitchen ceiling with a broom handle while Dad stands in the doorway with his hand on his head." loading="lazy">
+        <figcaption>
+          <span class="cap-title">“Mom bangs the ceiling…”</span>
+          <span class="cap-credit">Prompt by <b style="--c:#e6e6e6">Grok</b> · Image by <b style="--c:#7fd1b9">GPT Image</b></span>
+          <details><summary>Read the prompt</summary><p>Warm 35mm film photograph, 3:2 landscape. In a lived-in suburban American kitchen at dusk, a mid-40s ordinary mom in a worn sweater bangs a broom handle against the ceiling while mugs rattle on the counter from the band vibrating the floor below. Through the hallway a sixty-year-old dad with gray stubble, in a faded polo and jeans, shakes his head, baffled more than angry. Beyond a side window the rolled-up garage door glows under a bare bulb. Grounded, hopeful, a little gritty. No logos, no lettering, no celebrity likenesses.</p></details>
+        </figcaption>
+      </figure>
+      <figure class="scene" id="story-s4" data-key="s4">
+        <img src="img/s4.jpg" alt="Jenny writes lyrics over algebra homework in a notebook on an amp while Sam plays bass behind her." loading="lazy">
+        <figcaption>
+          <span class="cap-title">“Jenny’s got bars in the back of her math book”</span>
+          <span class="cap-credit">Prompt by <b style="--c:#7fd1b9">GPT-5.5</b> · Image by <b style="--c:#ffd84d">Nano Banana</b></span>
+          <details><summary>Read the prompt</summary><p>Grounded warm 35mm film photo, 3:2 landscape. Close-up of Jenny’s math book opened on a scuffed borrowed amp in a suburban garage at dusk, pages filled with algebra problems partly buried under messy rap-lyric handwriting, all words illegible scribbles. Jenny, 16, curly dark hair, hoodie sleeve and pen hand just entering frame. Behind the book, softly out of focus, lanky Sam in a beanie plays bass, only his hands and strings clear enough to read as motion. Bare bulb glow, rolled-up garage door framing dusk, no logos.</p></details>
+        </figcaption>
+      </figure>
+      <figure class="scene" id="story-s7" data-key="s7">
+        <img src="img/s7.jpg" alt="A teenager writes by flashlight in bed while a parent&#x27;s silhouette stands in the doorway." loading="lazy">
+        <figcaption>
+          <span class="cap-title">“I write it in whispers while the whole house listens”</span>
+          <span class="cap-credit">Prompt by <b style="--c:#8ab4f8">Gemini 3.1 Pro</b> · Image by <b style="--c:#7fd1b9">GPT Image</b></span>
+          <details><summary>Read the prompt</summary><p>Gritty graphic novel illustration, 3:2 landscape composition. Late at night inside a dark, suburban American house, a 16-year-old boy in a hoodie lies in bed after curfew. He is writing lyrics in a notebook, illuminated only by the warm, focused beam of a flashlight. The room is shadowy and grounded, filled with a quiet, hopeful energy. In the background, the dark hallway is visible through the slightly open bedroom door. The imposing silhouette shadow of a parent pauses in the doorway, listening quietly. No text, no logos, ordinary people.</p></details>
+        </figcaption>
+      </figure>
+      <figure class="scene" id="story-s5" data-key="s5">
+        <img src="img/s5.jpg" alt="Four teenagers laugh around a kitchen table at night with cereal bowls, lit by the open refrigerator." loading="lazy">
+        <figcaption>
+          <span class="cap-title">“Named the band at 2 a.m. on a dare”</span>
+          <span class="cap-credit">Prompt by <b style="--c:#e8a27c">Claude</b> · Image by <b style="--c:#e6e6e6">Grok Imagine</b></span>
+          <details><summary>Read the prompt</summary><p>35mm film photograph, candid and grainy, 3:2 landscape. A suburban kitchen at 2 a.m. lit only by the open refrigerator and a small stove light. Four teenagers crowd around a table: a boy rapper in a hoodie, Jenny with curly dark hair, lanky Sam in a beanie, and a drummer tapping spoons on a cereal bowl. Half-eaten cereal bowls, a spilled milk carton. Jenny is writing on a paper napkin while the others lean in laughing hard, one covering his mouth to stay quiet. Racially mixed, ordinary-looking kids. Conspiratorial, joyful mood. No readable text, no logos.</p></details>
+        </figcaption>
+      </figure>
+      <figure class="scene" id="story-s9" data-key="s9">
+        <img src="img/s9.jpg" alt="A faded 1970s instant photo of a long-haired garage band in a wood-paneled garage." loading="lazy">
+        <figcaption>
+          <span class="cap-title">“I had a band back in ’79”</span>
+          <span class="cap-credit">Prompt by <b style="--c:#e8a27c">Claude</b> · Image by <b style="--c:#7fd1b9">GPT Image</b></span>
+          <details><summary>Read the prompt</summary><p>A faded 1979 instant-film photograph with a thick white border, slightly overexposed, warm yellow-orange color shift and soft scratches, 3:2 landscape photo laid on a dark wooden surface. Inside the photo: four young men in their late teens form a garage band in a wood-paneled garage: long feathered hair, flared jeans, a striped tank top, a vintage drum kit, a sunburst electric guitar, a small amp on a crate. The young guitarist in the center grins at the camera with light stubble and kind, crinkled eyes. No band names, no logos, no handwriting.</p></details>
+        </figcaption>
+      </figure>
+      <figure class="scene" id="story-s10" data-key="s10">
+        <img src="img/s10.jpg" alt="A slippered foot taps on a garage floor next to worn sneakers and a guitar cable." loading="lazy">
+        <figcaption>
+          <span class="cap-title">“A kid inside a pair of sixty-year-old feet”</span>
+          <span class="cap-credit">Prompt by <b style="--c:#8ab4f8">Gemini 3.1 Pro</b> · Image by <b style="--c:#ffd84d">Nano Banana</b></span>
+          <details><summary>Read the prompt</summary><p>Grounded documentary photography, 3:2 landscape composition. An extreme close-up on the concrete floor of a gritty suburban American garage at night. On the floor are the worn, ordinary sneakers of a teenage band, surrounded by a thick black guitar cable. Right next to the sneakers is the foot of a 60-year-old man wearing a bathrobe hem and an old slipper. The slippered foot is tapping on the concrete, implying joy and connection. The lighting is warm and dramatic, cast from a single bare bulb above. No text, no logos, no recognizable brands, conveying a hopeful atmosphere.</p></details>
+        </figcaption>
+      </figure></div></div>
   </section>
+    <div data-track="story" data-t="200.967"></div>
+  </div>
 
   <div class="door-rule wrap" aria-hidden="true"></div>
 
@@ -414,8 +537,13 @@
         <ul><li><b>Grok Imagine</b> (xAI)</li><li><b>GPT Image</b> (OpenAI)</li><li><b>Nano Banana</b> (Google)</li></ul>
       </div>
       <div>
+        <h4>The narration</h4>
+        <ul><li><b>Claude</b>: voice “Chris” (ElevenLabs), lines by Claude</li><li><b>Yeshie</b>: voice “Jessica” (ElevenLabs), lines by Claude</li><li><b>Suno</b>: voice “Charlie” (ElevenLabs), lines by Claude</li><li><b>Grok</b>: voice “Callum” (ElevenLabs), lines by Grok</li><li><b>GPT-5.5</b>: voice “Eric” (ElevenLabs), lines by GPT-5.5</li><li><b>Gemini 3.1 Pro</b>: voice “Matilda” (ElevenLabs), lines by Gemini 3.1 Pro</li><li><b>Grok Imagine</b>: voice “Liam” (ElevenLabs), lines by Grok</li><li><b>GPT Image</b>: voice “Lily” (ElevenLabs), lines by GPT-5.5</li><li><b>Nano Banana</b>: voice “Laura” (ElevenLabs), lines by Gemini 3.1 Pro</li></ul>
+        <p style="font:12px/1.5 var(--mono);color:var(--muted);margin:10px 0 0">GPT, Gemini and Grok wrote their own lines and the lines for their image makers. Claude corrected one detail in Gemini’s line. The instrumental under the voices was separated from Suno’s track with Demucs.</p>
+      </div>
+      <div>
         <h4>This page</h4>
-        <ul><li><b>Claude</b>: story, design, build and the scroll-along player</li><li>Hosted on Netlify</li></ul>
+        <ul><li><b>Claude</b>: story, design, build and the player that follows you</li><li>Hosted on Netlify</li></ul>
       </div>
     </div>
   </section>
@@ -426,71 +554,79 @@
   Turn it up. Don’t turn it down.
 </footer>
 
-<div class="bar" id="bar" role="region" aria-label="Song player">
+<div class="countin" id="countin" aria-hidden="true"></div>
+
+<div class="bar" id="bar" role="region" aria-label="Player">
   <button class="pp" id="pp" type="button" aria-label="Play">▶</button>
   <div class="meta">
-    <div class="now-line" id="nowLine"><span>Intro</span>Press play. The page follows the song.</div>
+    <div class="now-line" id="nowLine"><span>Garage Door</span>Pick one: play the song, or hear how it was made.</div>
     <input type="range" id="seek" min="0" max="207.6" step="0.1" value="0" aria-label="Seek">
   </div>
   <div class="right">
-    <button class="follow" id="follow" type="button" hidden>Follow song</button>
+    <button class="follow" id="follow" type="button" hidden>Follow</button>
     <span class="time" id="time">0:00 / 3:27</span>
   </div>
 </div>
 
 <script>
 (() => {
-  const audio = document.getElementById('song');
-  const pp = document.getElementById('pp');
-  const bigPlay = document.getElementById('bigPlay');
-  const seek = document.getElementById('seek');
-  const timeEl = document.getElementById('time');
-  const nowLine = document.getElementById('nowLine');
-  const followBtn = document.getElementById('follow');
-  const DURATION = 207.6;
+  // One <audio> element plays both tracks. Swapping its source keeps it
+  // "unlocked" on phones, so the song can start by itself when the
+  // narration ends.
+  const audio = document.getElementById('player');
+  const TRACKS = {
+    song:  { src: 'audio/garage-door.mp3', duration: 207.6, label: 'The song' },
+    story: { src: 'audio/narration.mp3',   duration: 200.967, label: 'How they did it' },
+  };
+  const LAST_LINE_END = 200.367;
+  const $ = id => document.getElementById(id);
+  const pp = $('pp'), seek = $('seek'), timeEl = $('time'), nowLine = $('nowLine'), followBtn = $('follow'), door = $('door');
 
-  // Timeline marks: every element with data-t, in page order. Each mark ties a
-  // page position (the element's middle) to a moment in the song. Between two
-  // marks, position and time are interpolated linearly, so the mapping works
-  // in both directions: time -> scroll position, and scroll position -> time.
-  const markEls = [...document.querySelectorAll('[data-t]')];
-  const lines = [...document.querySelectorAll('.ly, .ly-intro')];
-  let marks = [];
+  let active = null;                 // the track loaded in the audio element
+  const saved = { song: 0, story: 0 }; // where each track was left
 
+  // Marks tie a page position (an element's middle) to a time in one track.
+  // Between two marks both are interpolated, so the mapping runs both ways.
+  const cues = { song: [...document.querySelectorAll('.cue[data-track="song"]')], story: [...document.querySelectorAll('.cue[data-track="story"]')] };
+  let marks = { song: [], story: [] };
   const readOffset = () => innerHeight * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--read'));
 
   function measure() {
-    const out = [];
-    for (const el of markEls) {
-      const r = el.getBoundingClientRect();
-      if (!r.height && el.id !== 'songEnd') continue;
-      const y = r.top + scrollY + Math.min(r.height / 2, 40);
-      const t = parseFloat(el.dataset.t);
-      const prev = out[out.length - 1];
-      if (prev && (y <= prev.y || t < prev.t)) continue; // keep both axes increasing
-      out.push({ y, t });
+    for (const track of ['song', 'story']) {
+      const out = [];
+      for (const el of document.querySelectorAll(`[data-track="${track}"][data-t]`)) {
+        const r = el.getBoundingClientRect();
+        const y = r.top + scrollY + Math.min(r.height / 2, 40);
+        const t = parseFloat(el.dataset.t);
+        const prev = out[out.length - 1];
+        if (prev && (y <= prev.y || t < prev.t)) continue;
+        out.push({ y, t });
+      }
+      marks[track] = out;
     }
-    marks = out;
   }
 
-  function yForTime(t) {
-    if (!marks.length) return 0;
-    if (t <= marks[0].t) return marks[0].y;
-    for (let i = 1; i < marks.length; i++) {
-      const a = marks[i - 1], b = marks[i];
+  function yForTime(track, t) {
+    const m = marks[track];
+    if (t <= m[0].t) return m[0].y;
+    for (let i = 1; i < m.length; i++) {
+      const a = m[i - 1], b = m[i];
       if (t <= b.t) return a.y + (b.t === a.t ? 0 : (t - a.t) / (b.t - a.t)) * (b.y - a.y);
     }
-    return marks[marks.length - 1].y;
+    return m[m.length - 1].y;
   }
 
-  // Returns null when the reading line is below the end of the song.
-  function timeForY(y) {
-    if (!marks.length || y <= marks[0].y) return 0;
-    const last = marks[marks.length - 1];
+  // The time in `track` for a reading-line position, or null if the position
+  // is outside that track's part of the page. Everything above the song counts
+  // as the song's start.
+  function timeForY(track, y) {
+    const m = marks[track];
+    const first = m[0], last = m[m.length - 1];
+    if (y < first.y) return (track === 'song' || y > first.y - innerHeight * 0.4) ? first.t : null;
     if (y > last.y + innerHeight * 0.35) return null;
     if (y >= last.y) return last.t;
-    for (let i = 1; i < marks.length; i++) {
-      const a = marks[i - 1], b = marks[i];
+    for (let i = 1; i < m.length; i++) {
+      const a = m[i - 1], b = m[i];
       if (y <= b.y) return a.t + (y - a.y) / (b.y - a.y) * (b.t - a.t);
     }
     return last.t;
@@ -498,12 +634,43 @@
 
   const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
+  // --- Loading and playing ----------------------------------------------
+  async function load(track) {
+    if (active === track) return;
+    if (active) saved[active] = audio.currentTime;
+    audio.pause();
+    active = track;
+    audio.src = TRACKS[track].src;
+    seek.max = TRACKS[track].duration;
+    await new Promise(res => audio.addEventListener('loadedmetadata', res, { once: true }));
+  }
+
+  let switching = false; // true while the audio element changes tracks; scroll events then are not the reader
+  async function go(track, t, play) {
+    const wasPlaying = !audio.paused || switching;
+    switching = true;
+    clearTimeout(settleTimer); userScrolling = false;
+    try { await load(track); } finally { setTimeout(() => { switching = false; }, 600); }
+    audio.currentTime = Math.max(0, Math.min(TRACKS[track].duration - 0.05, t));
+    following = true; followBtn.hidden = true;
+    render(true);
+    if (play ?? wasPlaying) {
+      try { await audio.play(); } catch (e) { /* the browser wants a tap first; the play button still works */ }
+    }
+  }
+
+  function toggle() {
+    if (!active) return go('song', 0, true);
+    if (audio.paused) {
+      if (audio.ended) return go('song', 0, true);
+      audio.play();
+    } else audio.pause();
+  }
+
   // --- Following ---------------------------------------------------------
-  // following = the page scrolls with the song. It turns off while the reader
-  // scrolls by hand, and back on once they stop inside the song.
-  let following = true;
-  let userScrolling = false;
-  let settleTimer = 0;
+  // following = the page scrolls with the sound. It pauses while the reader
+  // scrolls by hand, and resumes once they stop inside the song or narration.
+  let following = true, userScrolling = false, settleTimer = 0, scrollbarDrag = false;
 
   function markUserScroll() {
     userScrolling = true;
@@ -513,150 +680,166 @@
 
   function settle() {
     userScrolling = false;
-    const t = timeForY(scrollY + readOffset());
-    if (t === null) {
-      // Past the song: leave the music alone and offer a way back.
-      following = false;
-      followBtn.hidden = false;
-      return;
+    if (switching) return;
+    const y = scrollY + readOffset();
+    const ts = timeForY('story', y);
+    const track = ts !== null ? 'story' : (timeForY('song', y) !== null ? 'song' : null);
+    if (!track) { following = false; followBtn.hidden = !active; return; }
+    const t = track === 'story' ? ts : timeForY('song', y);
+    following = true; followBtn.hidden = true;
+    if (track !== active) {
+      if (!active && t === 0) return; // reading the top of the page before choosing: stay quiet
+      go(track, t);                    // keeps playing if something was playing
+    } else if (Math.abs(t - audio.currentTime) > 0.6) {
+      audio.currentTime = t; render(true);
     }
-    following = true;
-    followBtn.hidden = true;
-    if (Math.abs(t - audio.currentTime) > 0.6) setTime(t);
   }
 
   for (const ev of ['wheel', 'touchmove']) addEventListener(ev, markUserScroll, { passive: true });
   addEventListener('keydown', e => {
-    if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(e.key) && !e.target.closest('input, button, textarea, summary')) {
-      if (e.key === ' ') return; // space is play/pause, handled below
-      markUserScroll();
-    }
+    if (e.target.closest('input, textarea, [contenteditable]')) return;
+    if (e.key === ' ' && !e.target.closest('button, summary, a')) { e.preventDefault(); toggle(); return; }
+    if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) markUserScroll();
   });
-  // A scrollbar drag starts with a pointerdown on the root element; a link jump
-  // starts with a click on an in-page anchor. While the song plays, generic
-  // scroll events are NOT treated as the reader: the page's own follow-scroll
-  // fires them too, and reading them as the reader would drag the song backward
-  // after every seek. While paused, nothing scrolls automatically, so any
-  // scroll is the reader's.
-  let scrollbarDrag = false;
   addEventListener('pointerdown', e => { if (e.target === document.documentElement) { scrollbarDrag = true; markUserScroll(); } });
   addEventListener('pointerup', () => { scrollbarDrag = false; });
+  // While sound plays, the page's own follow-scroll also fires scroll events, so
+  // those are not the reader. While paused, any scroll is the reader's.
+  addEventListener('scroll', () => { if (!switching && (audio.paused || scrollbarDrag || userScrolling)) markUserScroll(); }, { passive: true });
+
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="#"]');
     if (!a) return;
-    // A link to a picture pinned beside the lyrics: go to the first line that picture illustrates.
-    const fig = document.querySelector(a.getAttribute('href'));
-    const sec = fig?.closest('.stage') && fig.closest('.song-sec');
+    const target = document.querySelector(a.getAttribute('href'));
+    const sec = target?.closest('.stage') && target.closest('.song-sec');
     if (sec) {
+      // A credits thumbnail: go to the first lyric that picture illustrates.
       e.preventDefault();
-      const first = sec.querySelectorAll('.ly')[parseInt(fig.dataset.from, 10)];
-      following = true; followBtn.hidden = true;
-      setTime(parseFloat(first.dataset.t));
-      scrollTo({ top: yForTime(audio.currentTime) - readOffset(), behavior: 'instant' });
+      const first = sec.querySelectorAll('.ly')[parseInt(target.dataset.from, 10)];
+      go('song', parseFloat(first.dataset.t)).then(() => scrollTo({ top: yForTime('song', audio.currentTime) - readOffset(), behavior: 'instant' }));
       return;
     }
     markUserScroll();
   });
-  addEventListener('scroll', () => {
-    if (audio.paused || scrollbarDrag || userScrolling) markUserScroll();
-  }, { passive: true });
-
-  function setTime(t) {
-    audio.currentTime = Math.max(0, Math.min(DURATION - 0.05, t));
-    render(true);
-  }
 
   // --- Rendering ---------------------------------------------------------
-  let current = null;
+  let currentCue;
   function render(force) {
+    if (!active) return;
     const t = audio.currentTime;
     if (!userScrolling) seek.value = t;
-    timeEl.textContent = `${fmt(t)} / ${fmt(DURATION)}`;
+    timeEl.textContent = `${fmt(t)} / ${fmt(TRACKS[active].duration)}`;
 
-    // Current line: the last line whose start time has passed.
+    const list = cues[active];
     let idx = -1;
-    for (let i = 0; i < lines.length; i++) if (parseFloat(lines[i].dataset.t) <= t + 0.05) idx = i;
-    const line = lines[idx] || null;
-    if (line !== current || force) {
-      lines.forEach((l, i) => { l.classList.toggle('now', i === idx); l.classList.toggle('sung', i < idx); });
-      current = line;
-      const sec = line?.closest('.song-sec');
-      const label = sec ? sec.dataset.label : 'Intro';
-      nowLine.innerHTML = `<span>${label}</span>${line ? line.textContent.replace(/^(Mom, from the kitchen|The band)/, '') : 'Chapter one: Wednesday night on the Hootnet'}`;
-      // Pictures: in each section, show the picture whose share of lines holds the current line.
-      document.querySelectorAll('.stage').forEach(stage => {
-        const s = stage.closest('.song-sec');
-        const figs = [...stage.querySelectorAll('.scene')];
-        let i = 0; // sections the song has not reached yet show their first picture
-        if (s === sec && line) {
-          const li = parseInt(line.dataset.i, 10);
-          figs.forEach((f, k) => { if (li >= parseInt(f.dataset.from, 10)) i = k; });
-        } else if (sec && (s.compareDocumentPosition(sec) & Node.DOCUMENT_POSITION_FOLLOWING)) {
-          i = figs.length - 1; // sections already sung keep their last picture
-        }
-        figs.forEach((f, k) => f.classList.toggle('active', k === i));
+    for (let i = 0; i < list.length; i++) if (parseFloat(list[i].dataset.t) <= t + 0.05) idx = i;
+    const cue = list[idx] || null;
+    if (cue === currentCue && !force) return;
+    currentCue = cue;
+    for (const track of ['song', 'story']) {
+      cues[track].forEach((c, i) => {
+        c.classList.toggle('now', track === active && i === idx);
+        c.classList.toggle('sung', track === active && i < idx);
       });
     }
+
+    if (active === 'story') {
+      const who = cue?.querySelector('.who')?.firstChild?.textContent || 'How they did it';
+      nowLine.innerHTML = `<span>${who}</span>${cue ? cue.querySelector('p').textContent : 'Music first, then the team speaks.'}`;
+    } else {
+      const sec = cue?.closest('.song-sec');
+      nowLine.innerHTML = `<span>${sec ? sec.dataset.label : 'Intro'}</span>${cue ? cue.textContent.replace(/^(Mom, from the kitchen|The band)/, '') : 'Garage Door'}`;
+    }
+
+    // Pinned pictures.
+    document.querySelectorAll('.stage').forEach(stage => {
+      const figs = [...stage.querySelectorAll('.scene')];
+      let i = 0;
+      if (stage.dataset.mode === 'bykey') {
+        const key = (active === 'story' && cue ? cue : cues.story[0]).dataset.img;
+        i = Math.max(0, figs.findIndex(f => f.dataset.key === key));
+      } else {
+        const s = stage.closest('.song-sec');
+        const sec = active === 'song' ? cue?.closest('.song-sec') : null;
+        if (s === sec) {
+          const li = parseInt(cue.dataset.i, 10);
+          figs.forEach((f, k) => { if (li >= parseInt(f.dataset.from, 10)) i = k; });
+        } else if (sec && (s.compareDocumentPosition(sec) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+          i = figs.length - 1;
+        }
+      }
+      figs.forEach((f, k) => f.classList.toggle('active', k === i));
+    });
+
+  }
+
+  let lastBeat = -1;
+  function countIn(t) {
+    const beatLen = 0.52, start = LAST_LINE_END - beatLen * 4;
+    const beat = t >= start && t < LAST_LINE_END + 0.3 ? Math.min(3, Math.floor((t - start) / beatLen)) : -1;
+    if (beat !== lastBeat && beat >= 0 && !audio.paused) $('countin').innerHTML = `<b>${beat + 1}</b>`;
+    if (beat === -1 && lastBeat !== -1) $('countin').innerHTML = '';
+    lastBeat = beat;
   }
 
   function tick() {
-    if (!audio.paused) {
+    if (active && !audio.paused) {
       render(false);
+      // Count-in over the last words of the narration ("One, two, three, four").
+      if (active === 'story') countIn(audio.currentTime);
       if (following && !userScrolling) {
-        const target = yForTime(audio.currentTime) - readOffset();
+        const target = yForTime(active, audio.currentTime) - readOffset();
         const diff = target - scrollY;
-        // Ease toward the target; jump faster when far away (after a seek).
         const step = Math.abs(diff) > innerHeight ? diff * 0.2 : diff * 0.08;
-        if (Math.abs(diff) > 0.5) {
-          const y = Math.round(scrollY + step);
-          scrollTo({ top: y, behavior: 'instant' });
-        }
+        if (Math.abs(diff) > 0.5) scrollTo({ top: Math.round(scrollY + step), behavior: 'instant' });
       }
     }
     requestAnimationFrame(tick);
   }
 
   // --- Controls ----------------------------------------------------------
-  function play() {
-    if (audio.ended || audio.currentTime >= DURATION - 0.2) audio.currentTime = 0;
-    following = true; followBtn.hidden = true;
-    // Starting from the hero: begin at the top of the song.
-    if (scrollY + readOffset() < marks[0]?.y) audio.currentTime = 0;
-    audio.play();
+  function choose(track) {
+    door.classList.add('chosen');
+    go(track, 0, true);
   }
-  function toggle() { audio.paused ? play() : audio.pause(); }
-
+  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => choose(b.dataset.go)));
   pp.addEventListener('click', toggle);
-  bigPlay.addEventListener('click', play);
-  audio.addEventListener('play', () => { pp.textContent = '❚❚'; pp.setAttribute('aria-label', 'Pause'); bigPlay.querySelector('span:last-child').textContent = 'Playing'; });
-  audio.addEventListener('pause', () => { pp.textContent = '▶'; pp.setAttribute('aria-label', 'Play'); bigPlay.querySelector('span:last-child').textContent = audio.currentTime > 1 ? 'Keep playing' : 'Play the song'; });
+  audio.addEventListener('play', () => { pp.textContent = '❚❚'; pp.setAttribute('aria-label', 'Pause'); });
+  audio.addEventListener('pause', () => { pp.textContent = '▶'; pp.setAttribute('aria-label', 'Play'); });
   audio.addEventListener('ended', () => {
-    render(true);
-    const making = document.getElementById('making');
-    scrollTo({ top: making.getBoundingClientRect().top + scrollY - 40, behavior: 'smooth' });
+    if (active === 'story') {
+      $('countin').innerHTML = '';
+      go('song', 0, true); // the team finished talking: loop back to the song
+    } else {
+      render(true);
+      const how = $('how');
+      scrollTo({ top: how.getBoundingClientRect().top + scrollY, behavior: 'smooth' });
+    }
   });
   seek.addEventListener('input', () => {
+    if (!active) return;
     following = true; followBtn.hidden = true;
-    setTime(parseFloat(seek.value));
-    // While paused the follow loop is idle, so move the page here.
-    if (audio.paused) scrollTo({ top: yForTime(audio.currentTime) - readOffset(), behavior: 'instant' });
+    audio.currentTime = parseFloat(seek.value); render(true);
+    if (audio.paused) scrollTo({ top: yForTime(active, audio.currentTime) - readOffset(), behavior: 'instant' });
   });
-  followBtn.addEventListener('click', () => { following = true; followBtn.hidden = true; if (audio.paused) play(); });
-  addEventListener('keydown', e => {
-    if (e.key === ' ' && !e.target.closest('input, button, textarea, summary, [contenteditable]')) { e.preventDefault(); toggle(); }
-  });
-  lines.forEach(l => l.addEventListener('click', () => {
-    following = true; followBtn.hidden = true;
-    setTime(parseFloat(l.dataset.t));
-    if (audio.paused) play();
-  }));
+  followBtn.addEventListener('click', () => { following = true; followBtn.hidden = true; if (audio.paused) audio.play(); });
+  for (const track of ['song', 'story']) {
+    cues[track].forEach(c => c.addEventListener('click', e => {
+      if (e.target.closest('a, button, summary')) return;
+      go(track, parseFloat(c.dataset.t), true);
+    }));
+  }
+
+  // The garage door rolls up when the choice scrolls into view.
+  new IntersectionObserver((entries, obs) => {
+    if (entries.some(e => e.isIntersecting)) { door.classList.add('open'); obs.disconnect(); }
+  }, { threshold: 0.6 }).observe(door);
 
   measure();
   addEventListener('load', measure);
   addEventListener('resize', measure);
   new ResizeObserver(measure).observe(document.body);
   document.querySelectorAll('img').forEach(img => img.addEventListener('load', measure));
-  render(true);
   requestAnimationFrame(tick);
 })();
 </script>

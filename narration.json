@@ -1,0 +1,40 @@
+{
+ "about": "The narrated 'How they did it' section. Each AI speaks its own part in its own ElevenLabs voice. 'author' is who wrote the line. build-narration.py renders the audio and writes the timings into this file's rendered copy, audio/narration.json.",
+ "speakers": {
+  "claude": {"name": "Claude", "org": "Anthropic", "voice": "iP95p4xoKVk53GoZ742B", "voiceName": "Chris", "color": "#e8a27c"},
+  "yeshie": {"name": "Yeshie", "org": "Mike's browser AI", "voice": "cgSgspJ2msm6clMCkdW9", "voiceName": "Jessica", "color": "#f28fb0"},
+  "suno": {"name": "Suno", "org": "Suno", "voice": "IKne3meq5aSn9XLyUdCD", "voiceName": "Charlie", "color": "#c7a6ff"},
+  "grok": {"name": "Grok", "org": "xAI", "voice": "N2lVS1w4EtoT3dr4eOWO", "voiceName": "Callum", "color": "#e6e6e6"},
+  "gpt": {"name": "GPT-5.5", "org": "OpenAI", "voice": "cjVigY5qzO86Huf0OWal", "voiceName": "Eric", "color": "#7fd1b9"},
+  "gemini": {"name": "Gemini 3.1 Pro", "org": "Google", "voice": "XrExE9yKIg1WjnnlVkGX", "voiceName": "Matilda", "color": "#8ab4f8"},
+  "grokimagine": {"name": "Grok Imagine", "org": "xAI", "voice": "TX3LPaxmHKxFdv7VOQHJ", "voiceName": "Liam", "color": "#e6e6e6"},
+  "gptimage": {"name": "GPT Image", "org": "OpenAI", "voice": "pFZP5JQG7iQjIQuC4Bku", "voiceName": "Lily", "color": "#7fd1b9"},
+  "nanobanana": {"name": "Nano Banana", "org": "Google", "voice": "FGY2WhTYpPnrIDTdsKH5", "voiceName": "Laura", "color": "#ffd84d"}
+ },
+ "lines": [
+  {"id": "claude_open", "speaker": "claude", "author": "claude", "image": "s1",
+   "text": "I'm Claude. One Wednesday night the Hootnet was talking: Jess, Harold, Noel, George and Mike. Someone said that when young people want to feel their own autonomy, they form a band, and make music their parents don't understand. Someone else said that sounded like a song. Mike handed it to us. Here's how we made it."},
+  {"id": "claude_lyrics", "speaker": "claude", "author": "claude", "image": "s8",
+   "text": "First I wrote it as a garage-rock song. Mike read it and said: turn it into a rap, with tight lyrics. So I rebuilt it. Sixteen bars a verse, a hook you can chant, and a third verse where the beat drops out and Dad walks into the driveway in his robe."},
+  {"id": "yeshie_suno", "speaker": "yeshie", "author": "claude", "image": "suno-cover",
+   "text": "I'm Yeshie. I'm the one with hands in the browser. I opened Suno in Mike's own Chrome, typed in the lyrics, the style and the title, and pressed Create. Then I stayed to check that Suno was really making it."},
+  {"id": "suno_music", "speaker": "suno", "author": "claude", "image": "suno-cover",
+   "text": "I'm Suno. I made the music: the dusty drums, the garage guitar, the rapper, and the gang vocals on the hook. I made two takes. Mike picked take one, and called it a banger."},
+  {"id": "claude_brief", "speaker": "claude", "author": "claude", "image": "s3",
+   "text": "Then Mike asked for a web page with pictures. I split the song into ten scenes, and wrote one brief for the whole team: the same kids in every picture, a warm bare bulb, the garage door rolled up, and no real logos."},
+  {"id": "grok_prompts", "speaker": "grok", "author": "grok", "image": "s2",
+   "text": "I'm Grok, from xAI. I wrote two prompts: Mom upstairs with a broom, banging the ceiling while the band shakes the floor, and the empty garage stage of two milk crates, one mic, and a crumpled page of lyrics. That's a whole concert, if you're counting."},
+  {"id": "gpt_prompts", "speaker": "gpt", "author": "gpt", "image": "s4",
+   "text": "I'm GPT-5.5 from OpenAI. I wrote the prompts for Jenny hunched over algebra homework, turning equations into rap lyrics while Sam plays bass behind her, and for Dad in his robe and slippers, stepping into the night as the whole garage band freezes."},
+  {"id": "gemini_prompts", "speaker": "gemini", "author": "gemini", "edited": "Claude corrected one detail: the flashlight scene shows one teenager, not a group of kids.", "image": "s7",
+   "text": "I'm Gemini 3.1 Pro. I drafted the prompts for the hero shot of the garage door rolled up at dusk while the neighbors watched. I also described a teenager writing lyrics by flashlight after curfew, and that tight close-up of Dad's slipper tapping right next to the band's sneakers."},
+  {"id": "grokimagine_render", "speaker": "grokimagine", "author": "grok", "image": "s5",
+   "text": "I'm Grok Imagine. I rendered four pictures: the hero shot of the open garage at dusk, four teens naming the band at two in the morning over cereal, the milk-crate stage, and Dad in his robe in the driveway. The bathrobe one is my favorite."},
+  {"id": "gptimage_render", "speaker": "gptimage", "author": "gpt", "image": "s9",
+   "text": "I'm GPT Image from OpenAI. I rendered Mom jabbing the kitchen ceiling with a broom while Dad holds his head, the after-curfew lyric-writing by flashlight with a parent listening in the doorway, and the faded 1979 instant photo of young Dad's garage band."},
+  {"id": "nano_render", "speaker": "nanobanana", "author": "gemini", "image": "s10",
+   "text": "I'm Nano Banana, the image maker. I painted six wise owls on a video chat to represent the Hootnet crew. I also brought Jenny's lyric-covered math book to life, and rendered that perfect shot of Dad's slipper tapping away on the cold garage floor."},
+  {"id": "claude_close", "speaker": "claude", "author": "claude", "image": "s3",
+   "text": "Then I built this page, and taught it to follow the song, so wherever you scroll, the music comes with you. That's enough talk from us. Here it is. One, two, three, four!"}
+ ]
+}
