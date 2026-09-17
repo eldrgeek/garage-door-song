@@ -1,0 +1,133 @@
+{
+ "prompters": {
+  "claude": {
+   "name": "Claude",
+   "via": "Anthropic · Opus 5",
+   "color": "#e8a27c"
+  },
+  "gpt": {
+   "name": "GPT-5.5",
+   "via": "OpenAI",
+   "color": "#7fd1b9"
+  },
+  "gemini": {
+   "name": "Gemini 3.1 Pro",
+   "via": "Google",
+   "color": "#8ab4f8"
+  },
+  "grok": {
+   "name": "Grok",
+   "via": "xAI",
+   "color": "#e6e6e6"
+  }
+ },
+ "makers": {
+  "grok": {
+   "name": "Grok Imagine",
+   "via": "xAI · Grok CLI",
+   "color": "#e6e6e6"
+  },
+  "openai": {
+   "name": "GPT Image",
+   "via": "OpenAI · via OpenRouter",
+   "color": "#7fd1b9"
+  },
+  "nanobanana": {
+   "name": "Nano Banana",
+   "via": "Google · via Antigravity",
+   "color": "#ffd84d"
+  }
+ },
+ "scenes": {
+  "s1": {
+   "section": "origin",
+   "title": "The spark: six owls on the Wednesday Hootnet",
+   "alt": "Illustration of a laptop showing a video call of six owls; the owl in headphones is talking, with a guitar doodle in a speech bubble.",
+   "prompter": "claude",
+   "maker": "nanobanana",
+   "prompt": "Warm storybook illustration, gouache and colored pencil, 3:2 landscape. A laptop screen at night showing a video-call grid of six glowing windows, each holding a different wise old owl in a cozy home setting: one with reading glasses, one with a knit scarf, one beside a bookshelf, one holding a teacup, one with headphones, one leaning in mid-sentence. Above the talking owl floats a tiny hand-drawn electric guitar doodle with little spark lines, as if an idea just arrived. Deep blue night tones, soft lamplight in each window, gentle humor. No text or lettering anywhere.",
+   "brief": "The spark: the Wednesday Hootnet, a weekly video call of six friends, drawn as six wise owls in six glowing video-call windows at night, one owl mid-sentence with a tiny guitar doodle floating above its head."
+  },
+  "s2": {
+   "section": "Verse 1",
+   "title": "“Mom bangs the ceiling…”",
+   "alt": "Mom pokes the kitchen ceiling with a broom handle while Dad stands in the doorway with his hand on his head.",
+   "prompter": "grok",
+   "maker": "openai",
+   "prompt": "Warm 35mm film photograph, 3:2 landscape. In a lived-in suburban American kitchen at dusk, a mid-40s ordinary mom in a worn sweater bangs a broom handle against the ceiling while mugs rattle on the counter from the band vibrating the floor below. Through the hallway a sixty-year-old dad with gray stubble, in a faded polo and jeans, shakes his head, baffled more than angry. Beyond a side window the rolled-up garage door glows under a bare bulb. Grounded, hopeful, a little gritty. No logos, no lettering, no celebrity likenesses.",
+   "brief": "Verse 1: Mom bangs the ceiling with a broom handle in a warm kitchen while the floor vibrates from the band below; Dad in the hallway shaking his head."
+  },
+  "s3": {
+   "section": "Hook",
+   "title": "The garage door, open at dusk",
+   "alt": "A teenage band plays in an open garage at dusk while neighbors watch from the sidewalk.",
+   "prompter": "gemini",
+   "maker": "grok",
+   "prompt": "Cinematic 35mm film photography, 3:2 landscape composition. A wide view of a suburban American garage at dusk, the garage door rolled up to frame a racially mixed teenage band playing a song. A 16-year-old boy in a hoodie raps into a microphone. Jenny, 16, with curly dark hair, holds an open math book. Sam, a lanky 15-year-old in a beanie, plays a bass guitar. A drummer plays a cheap drum kit with a cracked snare. They are lit by a warm, gritty bare bulb. Neighbors watch from the sidewalk in the twilight. Grounded, hopeful mood without brand logos or text.",
+   "brief": "Hook, the hero image: the garage door rolled all the way up at dusk, the band mid-song inside under a bare bulb, the neighborhood watching from the sidewalk."
+  },
+  "s4": {
+   "section": "Verse 1",
+   "title": "“Jenny’s got bars in the back of her math book”",
+   "alt": "Jenny writes lyrics over algebra homework in a notebook on an amp while Sam plays bass behind her.",
+   "prompter": "gpt",
+   "maker": "nanobanana",
+   "prompt": "Grounded warm 35mm film photo, 3:2 landscape. Close-up of Jenny’s math book opened on a scuffed borrowed amp in a suburban garage at dusk, pages filled with algebra problems partly buried under messy rap-lyric handwriting, all words illegible scribbles. Jenny, 16, curly dark hair, hoodie sleeve and pen hand just entering frame. Behind the book, softly out of focus, lanky Sam in a beanie plays bass, only his hands and strings clear enough to read as motion. Bare bulb glow, rolled-up garage door framing dusk, no logos.",
+   "brief": "Verse 1: close-up of Jenny's math book open on an amp, rap lyrics scrawled over algebra homework in the back pages; Sam's hands on a bass behind it, out of focus. Handwriting may be present but should be illegible scribbles."
+  },
+  "s5": {
+   "section": "Verse 1",
+   "title": "“Named the band at 2 a.m. on a dare”",
+   "alt": "Four teenagers laugh around a kitchen table at night with cereal bowls, lit by the open refrigerator.",
+   "prompter": "claude",
+   "maker": "grok",
+   "prompt": "35mm film photograph, candid and grainy, 3:2 landscape. A suburban kitchen at 2 a.m. lit only by the open refrigerator and a small stove light. Four teenagers crowd around a table: a boy rapper in a hoodie, Jenny with curly dark hair, lanky Sam in a beanie, and a drummer tapping spoons on a cereal bowl. Half-eaten cereal bowls, a spilled milk carton. Jenny is writing on a paper napkin while the others lean in laughing hard, one covering his mouth to stay quiet. Racially mixed, ordinary-looking kids. Conspiratorial, joyful mood. No readable text, no logos.",
+   "brief": "Verse 1: 'Named the band at 2 a.m. on a dare' - four teens around a kitchen table at 2 a.m., cereal bowls, one writing a name on a napkin, laughing. No readable text."
+  },
+  "s6": {
+   "section": "Verse 2",
+   "title": "“Two milk crates, one mic, and a page full of rage”",
+   "alt": "Two milk crates, a microphone stand and a page of handwritten lyrics in an empty garage under a bare bulb.",
+   "prompter": "grok",
+   "maker": "grok",
+   "prompt": "Warm 35mm film photograph, 3:2 landscape. An empty suburban American garage at night, framed by the rolled-up garage door and a hanging bare bulb. Two scuffed generic plastic milk crates form a low makeshift stage. One plain unbranded microphone stands on a cheap metal stand. A crumpled notebook page of dense handwritten lines, letters unreadable, lies on the concrete like leftover rage. Extension cords and a cracked snare sit in the corner. Ordinary, hopeful, a little gritty, nobody in the frame. No brand logos, no celebrity likenesses, no readable text.",
+   "brief": "Verse 2: 'two milk crates, one mic, and a page full of rage' - a makeshift stage of two plastic milk crates, one microphone on a stand, a crumpled lyric page, in the empty garage."
+  },
+  "s7": {
+   "section": "Verse 2",
+   "title": "“I write it in whispers while the whole house listens”",
+   "alt": "A teenager writes by flashlight in bed while a parent's silhouette stands in the doorway.",
+   "prompter": "gemini",
+   "maker": "openai",
+   "prompt": "Gritty graphic novel illustration, 3:2 landscape composition. Late at night inside a dark, suburban American house, a 16-year-old boy in a hoodie lies in bed after curfew. He is writing lyrics in a notebook, illuminated only by the warm, focused beam of a flashlight. The room is shadowy and grounded, filled with a quiet, hopeful energy. In the background, the dark hallway is visible through the slightly open bedroom door. The imposing silhouette shadow of a parent pauses in the doorway, listening quietly. No text, no logos, ordinary people.",
+   "brief": "Verse 2: 'Curfew's at ten but the hook's still missing, so I write it in whispers while the whole house listens' - the narrator in bed after curfew writing by flashlight, the dark house around, a parent's shadow pausing at the door."
+  },
+  "s8": {
+   "section": "Verse 3",
+   "title": "“Late night, Dad’s in the drive in his robe”",
+   "alt": "Dad in a bathrobe and slippers stands in the driveway at night while the band freezes in the open garage.",
+   "prompter": "gpt",
+   "maker": "grok",
+   "prompt": "Grounded warm cinematic digital illustration, 3:2 landscape. Late night suburban driveway: Dad, about 60 with gray stubble, stands under the porch light in a bathrobe and slippers, hands loose at his sides, not angry yet unreadable. Inside the open garage, framed by the rolled-up door and a bare bulb, the racially mixed teenage band freezes mid-song: 16-year-old rapper narrator in a hoodie gripping a mic, Jenny with curly dark hair clutching her math book, lanky Sam in a beanie holding bass, drummer behind a cheap cracked snare. Bracing for a lecture, hopeful tension, no text or logos.",
+   "brief": "Verse 3: 'Late night, Dad's in the drive in his robe' - Dad in bathrobe and slippers standing in the driveway under the porch light, the band frozen in the open garage, bracing for a lecture."
+  },
+  "s9": {
+   "section": "Verse 3",
+   "title": "“I had a band back in ’79”",
+   "alt": "A faded 1970s instant photo of a long-haired garage band in a wood-paneled garage.",
+   "prompter": "claude",
+   "maker": "openai",
+   "prompt": "A faded 1979 instant-film photograph with a thick white border, slightly overexposed, warm yellow-orange color shift and soft scratches, 3:2 landscape photo laid on a dark wooden surface. Inside the photo: four young men in their late teens form a garage band in a wood-paneled garage: long feathered hair, flared jeans, a striped tank top, a vintage drum kit, a sunburst electric guitar, a small amp on a crate. The young guitarist in the center grins at the camera with light stubble and kind, crinkled eyes. No band names, no logos, no handwriting.",
+   "brief": "Verse 3: 'I had a band back in '79' - a faded 1979 instant photo of young Dad's own garage band, long hair, flared jeans, wood-paneled garage."
+  },
+  "s10": {
+   "section": "Final Hook",
+   "title": "“A kid inside a pair of sixty-year-old feet”",
+   "alt": "A slippered foot taps on a garage floor next to worn sneakers and a guitar cable.",
+   "prompter": "gemini",
+   "maker": "nanobanana",
+   "prompt": "Grounded documentary photography, 3:2 landscape composition. An extreme close-up on the concrete floor of a gritty suburban American garage at night. On the floor are the worn, ordinary sneakers of a teenage band, surrounded by a thick black guitar cable. Right next to the sneakers is the foot of a 60-year-old man wearing a bathrobe hem and an old slipper. The slippered foot is tapping on the concrete, implying joy and connection. The lighting is warm and dramatic, cast from a single bare bulb above. No text, no logos, no recognizable brands, conveying a hopeful atmosphere.",
+   "brief": "Final hook: 'a kid inside a pair of sixty-year-old feet' - close on Dad's slippered foot tapping on the garage floor next to the kids' sneakers and a guitar cable, joy implied."
+  }
+ }
+}
